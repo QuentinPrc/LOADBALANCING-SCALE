@@ -1,10 +1,17 @@
-<!-- figaro1_html/index.html -->
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Gorafi 1</title>
-  </head>
-  <body>
-    <h1>Bonjour depuis Gorafi 1 TEST</h1>
-  </body>
+<head>
+  <title>Gorafi</title>
+</head>
+<body>
+  <h1>Bienvenue sur Gorafi</h1>
+  <div id="host">Chargement...</div>
+
+  <script>
+    fetch('/hostname.html')
+      .then(res => res.text())
+      .then(data => document.getElementById('host').innerHTML = data)
+      .catch(() => document.getElementById('host').innerText = 'Erreur');
+  </script>
+</body>
 </html>
