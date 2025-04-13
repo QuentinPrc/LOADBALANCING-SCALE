@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Figaro</title>
+</head>
+<body>
+  <h1>Bienvenue sur Figaro</h1>
+  <div id="host">Chargement...</div>
+
+  <script>
+    fetch('/hostname.html')
+      .then(res => res.text())
+      .then(data => document.getElementById('host').innerHTML = data)
+      .catch(() => document.getElementById('host').innerText = 'Erreur');
+  </script>
+</body>
+</html>

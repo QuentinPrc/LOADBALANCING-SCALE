@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  figaro1:
+    image: nginx
+    container_name: figaro1
+    volumes:
+      - ./indexF1.html:/usr/share/nginx/html/index.html:ro
+      - ./entrypoint.sh:/entrypoint.sh
+    networks:
+      - webgateway
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.figaro.rule=Host(`figaro.localhost`)"
+      - "traefik.http.services.figaro.loadbalancer.server.port=80"
+      - "traefik.docker.network=traefik_webgateway"
+
+  gorafi:
+    image: nginx
+    container_name: gorafi
+    volumes:
+      - ./indexG1.html:/usr/share/nginx/html/index.html:ro
+      - ./entrypoint.sh:/entrypoint.sh
+    networks:
+      - traefik_webgateway
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gorafi.rule=Host(`gorafi.localhost`)"
+      - "traefik.http.services.gorafi.loadbalancer.server.port=80"
+      - "traefik.docker.network=traefik_webgateway"
+
+networks:
+  webgateway:
+    external: true
